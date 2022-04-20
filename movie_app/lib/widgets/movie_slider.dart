@@ -49,7 +49,7 @@ class _MoviePoster extends StatelessWidget {
             onTap: () => Navigator.pushNamed(context, 'Details', arguments:  'Movie-instance'),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: FadeInImage(
+              child: const FadeInImage(
                 placeholder: AssetImage('assets/no-image.jpg'), 
                 image: NetworkImage('https://via.placeholder.com/300x400'),
                 width: 130,
@@ -57,7 +57,7 @@ class _MoviePoster extends StatelessWidget {
                 fit: BoxFit.cover,),
             ),
           ),
-          Text(
+          const Text(
             'StarWars: una guerra de locos',
             maxLines: 4,
             overflow: TextOverflow.ellipsis,
