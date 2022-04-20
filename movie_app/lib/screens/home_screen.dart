@@ -18,10 +18,17 @@ class HomeScreen extends StatelessWidget {
             icon: Icon(Icons.search, color: Colors.white,))
         ],
       ),
-      body: Column(
-        children: [
-          CardSwiper()
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: const [
+            //Main cards
+            CardSwiper(),
+      
+            //Movie Sliders
+            MovieSlider(),
+      
+          ],
+        ),
       )
     );
   }
