@@ -14,7 +14,7 @@ class CastingCard extends StatelessWidget {
         itemCount: 10,
         scrollDirection: Axis.horizontal,
         itemBuilder: ((context, index) {
-          return _CastCard();
+          return const _CastCard();
         })
       ),
     );
@@ -27,14 +27,14 @@ class _CastCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 12),
       width: 110,
       height: 100,
       //color: Colors.green,
       child: Column(
         children: [
           GestureDetector(
-            onTap: () => Navigator.pushNamed(context, 'Details', arguments:  'Movie-instance'),
+            //onTap: () => Navigator.pushNamed(context, 'Details', arguments:  'Movie-instance'),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: const FadeInImage(
@@ -45,7 +45,7 @@ class _CastCard extends StatelessWidget {
                 fit: BoxFit.cover,),
             ),
           ),
-          SizedBox(height: 5,),
+          const SizedBox(height: 5,),
           const Text(
             'Tomi Mawaier puentes puentes',
             maxLines: 2,
