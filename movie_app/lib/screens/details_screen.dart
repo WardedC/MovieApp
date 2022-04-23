@@ -111,6 +111,7 @@ class _PosterAndTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
      final TextTheme textTheme = Theme.of(context).textTheme;
+     final size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.only(top: 20),
       padding: EdgeInsets.symmetric(horizontal: 20),
@@ -127,32 +128,36 @@ class _PosterAndTitle extends StatelessWidget {
             ),
           ),
           const SizedBox( width: 20,),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                movieTitle,
-                style: textTheme.headline5,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              
-              ),
-              Text(
-                movieOriginalTitle,
-                style: textTheme.subtitle1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Row(
-                children: [
-                  Icon(Icons.star, size: 20, color: Colors.amber,),
-                  SizedBox(width: 5,),
-                  Text(
-                    '$movieVoteAvarage',
-                    style: textTheme.caption,
-                    )
-                ],
-              )              
-            ],
+          ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: size.width - 210),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  movieTitle,
+                  style: textTheme.headline6,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                
+                ),
+                Text(
+                  movieOriginalTitle,
+                  style: textTheme.subtitle1,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.star, size: 20, color: Colors.amber,),
+                    SizedBox(width: 5,),
+                    Text(
+                      '$movieVoteAvarage',
+                      style: textTheme.caption,
+                      )
+                  ],
+                )              
+              ],
+            ),
           )
         ],
       ),
