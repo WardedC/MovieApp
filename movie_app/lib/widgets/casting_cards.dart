@@ -1,28 +1,66 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app/models/models.dart';
+import 'package:movie_app/provider/movies_provider.dart';
+import 'package:provider/provider.dart';
 
 class CastingCard extends StatelessWidget {
   //const CastingCard({Key? key}) : super(key: key);
+  final int movieId;
+
+  const CastingCard({Key? key, 
+   required this.movieId
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      //margin: EdgeInsets.only(bottom: 30),
-      width: double.infinity,
-      height: 180,
-      //color: Colors.red,
-      child: ListView.builder(
-        itemCount: 10,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: ((context, index) {
-          return const _CastCard();
-        })
-      ),
-    );
+
+    final moviesProvider = Provider.of<MovieProvider>(context, listen: false);
+    
+    return FutureBuilder(
+      future: moviesProvider.getMoviesCast(movieId),
+      builder: (_, AsyncSnapshot<List<Cast>> snapshot){
+
+        if(!snapshot.hasData){
+          return Container(
+            constraints: BoxConstraints(maxWidth: 150),
+            height: 180,
+            child: CupertinoActivityIndicator(),
+
+          ) ;
+        }
+
+        final cast = snapshot.data!;
+
+
+        return Container(
+          //margin: EdgeInsets.only(bottom: 30),
+          width: double.infinity,
+          height: 180,
+          //color: Colors.red,
+          child: ListView.builder(
+            itemCount: cast.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: ((context, index) {
+              return  _CastCard(actor: cast[index],);
+            })
+          ),
+        );
+      }
+      
+      );
+
+
   }
 }
 
 class _CastCard extends StatelessWidget {
-  const _CastCard({Key? key}) : super(key: key);
+  final Cast actor;
+
+  const _CastCard({
+    Key? key, 
+    required this.actor
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,17 +75,17 @@ class _CastCard extends StatelessWidget {
             //onTap: () => Navigator.pushNamed(context, 'Details', arguments:  'Movie-instance'),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: const FadeInImage(
+              child:  FadeInImage(
                 placeholder: AssetImage('assets/no-image.jpg'), 
-                image: NetworkImage('https://via.placeholder.com/300x400'),
+                image: NetworkImage(actor.fullProfilePath),
                 width: 140,
                 height: 140,
                 fit: BoxFit.cover,),
             ),
           ),
           const SizedBox(height: 5,),
-          const Text(
-            'Tomi Mawaier puentes puentes',
+          Text(
+            actor.name,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
