@@ -82,18 +82,21 @@ class MovieSearchDelegate extends SearchDelegate {
   
     @override
     Widget build(BuildContext context) {
-      return ListTile(
-        leading: FadeInImage(
-          placeholder: AssetImage('assets/loading.gif'),
-          image: NetworkImage(movie.fullPosterImg),
-          width: 50,
-          fit: BoxFit.contain,
+      return Hero(
+        tag: movie.id,
+        child: ListTile(
+          leading: FadeInImage(
+            placeholder: AssetImage('assets/loading.gif'),
+            image: NetworkImage(movie.fullPosterImg),
+            width: 50,
+            fit: BoxFit.contain,
+          ),
+          title: Text(movie.title),
+          subtitle: Text(movie.originalTitle),
+          onTap: (){
+            Navigator.pushNamed(context, "Details", arguments: movie );
+          },
         ),
-        title: Text(movie.title),
-        subtitle: Text(movie.originalTitle),
-        onTap: (){
-          Navigator.pushNamed(context, "Details", arguments: movie );
-        },
       );
     }
   }
